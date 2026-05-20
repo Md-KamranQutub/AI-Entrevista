@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import {getAuth , GoogleAuthProvider} from 'firebase/auth'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAn0L7hFNCDETGdmzy-Iy-akZXqrB9vITQ",
+  apiKey: import.meta.env.FIREBASE_API_KEY,
   authDomain: "ai-entrevista.firebaseapp.com",
   projectId: "ai-entrevista",
   storageBucket: "ai-entrevista.firebasestorage.app",
