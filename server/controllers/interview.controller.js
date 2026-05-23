@@ -259,17 +259,18 @@ export const getReport = async(req,res)=>{
             confidenceScore += q.confidence
             correctnessScore += q.correctness
         });
-
+        
         const finalScore = totalScore/10;
         const avgCommunication = communicationScore/10;
         const avgConfidence = confidenceScore/10;
         const avgCorrectness = correctnessScore/10;
 
         interview.finalScore = finalScore;
-        interview.status = "completed";
+        interview.status = "Completed";
         await interview.save();
 
         return res.status(200).json({
+            id: interview._id,
             finalScore: Number(finalScore.toFixed(1)),
             confidence: Number(avgConfidence.toFixed(1)),
             communication: Number(avgCommunication.toFixed(1)),
@@ -284,7 +285,6 @@ export const getReport = async(req,res)=>{
             }))
         })
     } catch (error) {
-        console.log("Error in gettting Report ",error);
         return res.status(200).json({message:`Failed to complete Interview ${error.message}`})   
     }
 }
