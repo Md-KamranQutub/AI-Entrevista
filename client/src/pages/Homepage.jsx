@@ -87,7 +87,7 @@ const navigate = useNavigate();
             })
            }
         </div>
-        <div className="capabilities mt-20 flex flex-col items-center justify-center">
+        <div className="capabilities px-4 md:px-0 mt-20 flex flex-col items-center justify-center">
             <motion.div initial={{opacity:0 , y:40}} whileInView={{opacity:1 , y:0}} transition={{duration:0.4}} className='flex gap-2'><h2 className='font-bold text-2xl'>Advanced AI</h2><h2 className='font-bold text-2xl text-green-500'>Capabilites</h2></motion.div>
             <div className='grid md:grid-cols-2 gap-10 md:mx-60'>
                 {
@@ -117,7 +117,7 @@ const navigate = useNavigate();
                       desc:"Tack progress with performance graphs and topic analysis."
                     }                   
                   ].map((item, index)=>{
-                    return <motion.div key={index} whileHover={{scale:1.06}} className='flex gap-1 max-h-60 rounded-2xl shadow-2xl shadow-gray-200'>
+                    return <motion.div key={index} whileHover={{scale:1.06}} className='flex  border-gray-100 gap-1 max-h-60 rounded-2xl shadow-2xl shadow-gray-200'>
                           <div className='w-1/2'>
                           <img className="object-contain max-h-60" src={item.image} alt="No Image"/>
                           </div>
@@ -137,7 +137,7 @@ const navigate = useNavigate();
                 }
             </div>
         </div>
-        <div className="capabilities mt-20 flex flex-col items-center justify-center">
+        <div className="capabilities px-4 mt-20 flex flex-col items-center justify-center">
             <motion.div initial={{opacity:0 , y:40}} whileInView={{opacity:1 , y:0}} transition={{duration:0.4}} className='flex gap-2'><h2 className='font-bold text-2xl'>Multiple Interview <span className='text-green-500'>Modes</span></h2></motion.div>
             <div className='grid md:grid-cols-2 gap-10 md:mx-60 mt-20'>
                 {

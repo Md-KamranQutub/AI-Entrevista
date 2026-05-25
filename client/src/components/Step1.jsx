@@ -67,7 +67,7 @@ const Step1 = ({ onStart }) => {
     }
   };
   return (
-    <div className="md:w-3/4 flex my-10 md:my-20 flex-col md:flex-row  rounded-2xl border-2  border-gray-100 shadow-3xl shadow-gray-300">
+    <div className="md:w-3/4 flex  md:my-20 flex-col md:flex-row  rounded-2xl border-2  border-gray-100 shadow-3xl shadow-gray-300">
       <div className="bg-green-100 px-10 py-12 md:w-1/2">
         <h2 className="font-bold text-3xl py-4">Start Your AI Interview</h2>
         <p className="text-sm  py-4">
@@ -83,7 +83,7 @@ const Step1 = ({ onStart }) => {
           <p className="font-semibold text-md">Smart Voice Interview</p>
         </div>
       </div>
-      <div className="bg-white md:w-1/2 flex flex-col md:px-10 py-6 gap-8 focus:border-2 border-green-500">
+      <div className="bg-white px-10 md:w-1/2 flex flex-col md:px-10 py-6 gap-8 focus:border-2 border-green-500">
         <h2 className="text-3xl font-bold">Interview Setup</h2>
         <div className="flex gap-2 p-3 items-center ring-green-500 focus-within:ring-2 rounded-lg">
           <FaUserTie className="text-gray-400" size={18} />

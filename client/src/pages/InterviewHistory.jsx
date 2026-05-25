@@ -52,7 +52,7 @@ const InterviewHistory = () => {
                 <div className="interview-collection flex flex-col gap-4">
                     {interviews.map((interview, index) => {
                         return <motion.div onClick={()=>{showReport(interview._id)}} whileTap={{scale:0.96}} whileHover={{ scale: 1.02 }} key={interview._id} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className='cursor-pointer md:p-4 px-6 py-3 gap-5 bg-white rounded-2xl flex flex-col md:flex-row items-center justify-between shadow-2xl shadow-gray-300 border-2 border-gray-100'>
-                            <div className="role flex flex-row md:flex-col gap-1">
+                            <div className="role flex flex-row md:flex-col px-1 md:px-0 md:w-fit  justify-between w-full">
                                 <div className="roleshow">
                                     <h3 className='font-bold text-sm md:text-lg '>{interview.role}</h3>
                                 </div>
@@ -63,12 +63,12 @@ const InterviewHistory = () => {
                                     <p className='text-sm text-gray-300'>{new Date(interview.createdAt).toLocaleDateString()}</p>
                                 </div>
                             </div>
-                            <div className='flex justify-between  md:gap-2'>
+                            <div className='flex justify-between w-full md:w-fit  md:gap-4'>
                                 <div className="score flex flex-col">
                                     <div className="scoreshow text-lg text-green-500">{interview.finalScore}/10</div>
                                     <p className='text-sm text-gray-400 font-normal'>Overall</p>
                                 </div>
-                                <div className={`status rounded-full text-xs flex items-center ${interview.status === "completed" ? "bg-green-200 text-green-700" : "bg-yellow-200 text-yellow-700"} py-0.5 px-4 font-semibold`}>
+                                <div className={`status rounded-full text-xs flex items-center ${interview.status === "Completed" ? "bg-green-300 text-green-700" : "bg-yellow-200 text-yellow-700"} py-0.5 px-4 font-semibold`}>
                                     <p className='flex items-center'>{interview.status}</p>
                                 </div>
                             </div>
