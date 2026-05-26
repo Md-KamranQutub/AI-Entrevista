@@ -33,7 +33,7 @@ const Step2 = ({ interviewData, onFinish }) => {
 
   // BUG FIX #2: was setTimeLeft(questions[currentIndex]) — must use .timeLimit
   useEffect(() => {
-    setTimeLeft(questions[currentIndex]?.timeLimit ?? 60);
+    setTimeLeft(questions[currentIndex]?.timeLimit);
   }, [currentIndex]);
 
   useEffect(() => {
@@ -72,7 +72,6 @@ const Step2 = ({ interviewData, onFinish }) => {
             await speakText("Alright, this one might be a bit more challenging.");
           }
           await speakText(question.question);
-          if (isMicOn) startMic();
         }
       } catch (err) {
         console.error(err);
@@ -85,24 +84,31 @@ const Step2 = ({ interviewData, onFinish }) => {
   useEffect(() => {
     const loadVoices = () => {
       const voices = window.speechSynthesis.getVoices();
+      console.log(voices);
       if (!voices.length) return;
 
       const femaleVoice = voices.find(v =>
         v.name.toLowerCase().includes("zira") ||
         v.name.toLowerCase().includes("samantha") ||
+        v.name.toLowerCase().includes("siri") ||
+        v.name.toLowerCase().includes("ava") ||
+        v.name.toLowerCase().includes("alison") ||
+        v.name.toLowerCase().includes("susan") ||
+        v.name.toLowerCase().includes("kathy") ||
+        v.name.toLowerCase().includes("vicky") ||
         v.name.toLowerCase().includes("female")
       );
       if (femaleVoice) { setVoiceGender("female"); setSelectedVoice(femaleVoice); return; }
 
-      const maleVoice = voices.find(v =>
-        v.name.toLowerCase().includes("david") ||
-        v.name.toLowerCase().includes("mark") ||
-        v.name.toLowerCase().includes("male")
-      );
-      if (maleVoice) { setVoiceGender("male"); setSelectedVoice(maleVoice); return; }
+      // const maleVoice = voices.find(v =>
+      //   v.name.toLowerCase().includes("david") ||
+      //   v.name.toLowerCase().includes("mark") ||
+      //   v.name.toLowerCase().includes("male")
+      // );
+      // if (maleVoice) { setVoiceGender("male"); setSelectedVoice(maleVoice); return; }
 
       setSelectedVoice(voices[0]);
-      setVoiceGender("female");
+      setVoiceGender("male");
     };
     loadVoices();
     window.speechSynthesis.onvoiceschanged = loadVoices;
@@ -184,15 +190,14 @@ const Step2 = ({ interviewData, onFinish }) => {
   // Countdown timer
   useEffect(() => {
     if (isIntroPhase) return;
-    if (isSubmitting) return;
     if (!question) return;
 
     // BUG FIX #5: setTimeout was incorrectly wrapping setTimeLeft call
     const interval = setInterval(() => {
       setTimeLeft(prev => {
-        if (prev <= 1) {
+        if (prev <= 0 || isSubmitting || feedback) {
           clearInterval(interval);
-          return 0;
+          return prev;
         }
         return prev - 1;
       });
@@ -205,7 +210,6 @@ const Step2 = ({ interviewData, onFinish }) => {
     if (isSubmitting) return;
     stopMic();
     setIsSubmitting(true);
-    setTimeLeft(0);
     try {
       const response = await axios.post(
         import.meta.env.VITE_BACKEND_URL + "/api/interview/submit-answer",
@@ -469,12 +473,12 @@ const Step2 = ({ interviewData, onFinish }) => {
                 <span className="text-white/30 text-xs uppercase tracking-widest">Your Answer</span>
                 <span className="text-white/20 text-xs">{answer.trim().split(/\s+/).filter(Boolean).length} words</span>
               </div>
-              <textarea
+              <textarea 
                 name="answer"
                 id="answer"
                 value={answer}
                 onChange={e => setAnswer(e.target.value)}
-                className="w-full resize-none outline-none bg-transparent text-white/90 px-4 py-3 placeholder-white/20 text-sm leading-relaxed"
+                className="w-full h-full resize-none outline-none bg-transparent text-white/90 px-4 py-3 placeholder-white/20 text-sm leading-relaxed"
                 style={{ minHeight: 130 }}
                 placeholder="Start speaking or type your answer here…"
               />
